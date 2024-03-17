@@ -1,4 +1,8 @@
-export interface User {
+export interface Restaurant {
     id: number;
-    userName: string;
+    name: string;
+    description: string;
+    timesRated: number;
+    image: string;
+    favourited: boolean
   }

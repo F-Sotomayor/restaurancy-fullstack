@@ -1,12 +1,11 @@
 import express, { Request, Response } from "express";
-import * as usersServices from "../services/userServices";
+import * as restaurantsServices from "../services/restaurantsServices";
 
 const router = express.Router();
 
-// Route handler for fetching all users
 router.get("/", async (_req: Request, res: Response) => {
   try {
-    const users = await usersServices.getUsers();
+    const users = await restaurantsServices.getRestaurants();
     res.send(users);
   } catch (error) {
     res.status(500).send({ error: (error as Error).message });
@@ -14,13 +13,15 @@ router.get("/", async (_req: Request, res: Response) => {
 });
 
 router.get("/:id", async (req: Request, res: Response) => {
-  const userId = req.params.id;
+  const restaurantId = req.params.id;
   try {
-    const user = await usersServices.getUserById(userId);
-    if (!user) {
-      return res.status(404).send({ error: "User not found" });
+    const restaurant = await restaurantsServices.getRestaurantById(
+      restaurantId
+    );
+    if (!restaurant) {
+      return res.status(404).send({ error: "Restaurant not found" });
     }
-    return res.send(user)
+    return res.send(restaurant);
   } catch (error) {
     return res.status(500).send({ error: (error as Error).message });
   }
@@ -28,8 +29,8 @@ router.get("/:id", async (req: Request, res: Response) => {
 
 router.post("/", async (req: Request, res: Response) => {
   try {
-    const newUser = await usersServices.createUser(req.body);
-    res.status(201).send(newUser);
+    const newRestaurant = await restaurantsServices.createRestaurant(req.body);
+    res.status(201).send(newRestaurant);
   } catch (error) {
     res.status(500).send({ error: (error as Error).message });
   }
@@ -37,8 +38,10 @@ router.post("/", async (req: Request, res: Response) => {
 
 router.patch("/", async (req: Request, res: Response) => {
   try {
-    const updatedUser = await usersServices.updateUser(req.body);
-    res.status(200).send(updatedUser);
+    const updatedRestaurant = await restaurantsServices.updateRestaurant(
+      req.body
+    );
+    res.status(200).send(updatedRestaurant);
   } catch (error) {
     res.status(500).send({ error: (error as Error).message });
   }
@@ -46,8 +49,10 @@ router.patch("/", async (req: Request, res: Response) => {
 
 router.delete("/", async (req: Request, res: Response) => {
   try {
-    const deletedUser = await usersServices.deleteUser(req.body);
-    res.status(204).send(deletedUser);
+    const deletedRestaurant = await restaurantsServices.deleteRestaurant(
+      req.body
+    );
+    res.status(204).send(deletedRestaurant);
   } catch (error) {
     res.status(500).send({ error: (error as Error).message });
   }

@@ -1,5 +1,5 @@
 import express from "express";
-import usersRouter from "./routes/users";
+import restaurantsRouter from "./routes/restaurants";
 
 const app = express();
 
@@ -14,8 +14,8 @@ app.use((_req, res, next) => {
   next();
 });
 
-app.use("/api/users", usersRouter);
-app.use("/api/users/:id", usersRouter)
+app.use("/api/restaurants", restaurantsRouter);
+app.use("/api/restaurant/:id", restaurantsRouter)
 
 
 app.listen(PORT, () => {
