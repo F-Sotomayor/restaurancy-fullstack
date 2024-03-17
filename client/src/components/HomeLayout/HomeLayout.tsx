@@ -1,6 +1,6 @@
 import { Heading, Stack } from "@chakra-ui/react";
 import { ReactNode } from "react";
-import Search from "../search/Search";
+import Search from "../Search/Search";
 
 export default function Layout({
   children,
