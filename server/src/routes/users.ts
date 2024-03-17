@@ -3,12 +3,26 @@ import * as usersServices from "../services/userServices";
 
 const router = express.Router();
 
+// Route handler for fetching all users
 router.get("/", async (_req: Request, res: Response) => {
   try {
     const users = await usersServices.getUsers();
     res.send(users);
   } catch (error) {
     res.status(500).send({ error: (error as Error).message });
+  }
+});
+
+router.get("/:id", async (req: Request, res: Response) => {
+  const userId = req.params.id;
+  try {
+    const user = await usersServices.getUserById(userId);
+    if (!user) {
+      return res.status(404).send({ error: "User not found" });
+    }
+    return res.send(user)
+  } catch (error) {
+    return res.status(500).send({ error: (error as Error).message });
   }
 });
 

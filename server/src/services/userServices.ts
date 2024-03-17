@@ -12,6 +12,16 @@ export async function getUsers(): Promise<User[]> {
   return data.items || [];
 }
 
+export async function getUserById(userId: string): Promise<User | null> {
+  const filterExpression = `?filter=(id='${userId}')`;
+  const response = await fetch(`${BASE_URL}${USERS_API}${filterExpression}`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch user");
+  }
+  const data = await response.json();
+  return data.items[0] || [];
+}
+
 export async function createUser(userData: User): Promise<User> {
   const response = await fetch(`${BASE_URL}${USERS_API}`, {
     method: "POST",

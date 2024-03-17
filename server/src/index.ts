@@ -15,6 +15,8 @@ app.use((_req, res, next) => {
 });
 
 app.use("/api/users", usersRouter);
+app.use("/api/users/:id", usersRouter)
+
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
