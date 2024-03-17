@@ -13,12 +13,15 @@ export async function getRestaurants(): Promise<Restaurant[]> {
 }
 
 export async function getRestaurantById(id: string): Promise<Restaurant | null> {
-  const filterExpression = `?filter=(id='${id}')`;
+  const filterExpression = `?filter=(_id='${id}')`;
+  console.log(filterExpression)
   const response = await fetch(`${BASE_URL}${RESTAURANTS_API}${filterExpression}`);
   if (!response.ok) {
     throw new Error("Failed to fetch restaurant");
   }
+  
   const data = await response.json();
+  console.log(data)
   return data.items[0] || [];
 }
 
